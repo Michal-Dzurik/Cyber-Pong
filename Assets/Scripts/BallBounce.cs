@@ -7,7 +7,17 @@ public class BallBounce : MonoBehaviour
     // Start is called before the first frame update
     public BallMovement ballMovement;
     public ScoreManager scoreManager;
+    private string whoBouncedTheBall = "";
     public GameObject hitSound;
+    public LeftPlayer leftPlayerMovement;
+    public RightPlayer rightPlayerMovement;
+
+    // Constans
+    private const string PLAYER_RIGHT = "Right Player";
+    private const string PLAYER_LEFT = "Left Player";
+    private const string LEFT_BORDER = "Left Border";
+    private const string RIGHT_BORDER = "Right Border";
+    private const string CHANGE_CONTROL = "Change Controls Power-up";
     private void Bounce(Collision2D collision){
         Vector3 ballPosition = transform.position;
         Vector3 racketPosition = collision.transform.position;
@@ -15,7 +25,7 @@ public class BallBounce : MonoBehaviour
         float racketHeight = collision.collider.bounds.size.y;
 
         float positionX;
-        if(collision.gameObject.name == "Player Left"){
+        if(collision.gameObject.name == PLAYER_LEFT){
             positionX = 1;
         }
         else{
@@ -29,21 +39,63 @@ public class BallBounce : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision){
-        if(collision.gameObject.name == "Player Left" || collision.gameObject.name == "Player Righ"){
+        Debug.Log(collision.gameObject.name);
+        switch(collision.gameObject.name){
+            case PLAYER_LEFT:
+                Debug.Log(PLAYER_LEFT);
+                whoBouncedTheBall = PLAYER_LEFT;
                 Bounce(collision);
-        }
-        else if (collision.gameObject.name == "Right Border"){
-            scoreManager.PlayerLeftScored();
-            ballMovement.playerLeftStarts = false;
-            StartCoroutine(ballMovement.Launch());
-        }
-        else if (collision.gameObject.name == "Left Border"){
-            scoreManager.PlayerRightScored();
-            ballMovement.playerLeftStarts = true;
-            StartCoroutine(ballMovement.Launch());
+                break;
+            case PLAYER_RIGHT:
+                whoBouncedTheBall = PLAYER_RIGHT;
+                Debug.Log(PLAYER_RIGHT);
+                Bounce(collision);
+                
+                break;
+            case RIGHT_BORDER:
+                scoreManager.PlayerLeftScored();
+                ballMovement.playerLeftStarts = false;
+                StartCoroutine(ballMovement.Launch());
+                break;
+            case LEFT_BORDER:
+                scoreManager.PlayerRightScored();
+                ballMovement.playerLeftStarts = true;
+                StartCoroutine(ballMovement.Launch());
+                break;
+            
         }
 
         Instantiate(hitSound,transform.position,transform.rotation);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider){
+        if(collider.gameObject.name.Equals(CHANGE_CONTROL)){
+            if(!whoBouncedTheBall.Equals("")){
+                    Debug.Log("Here we are alsooo");
+                    if(whoBouncedTheBall.Equals(PLAYER_LEFT)){
+                        Destroy(collider.gameObject);
+                        rightPlayerMovement.EnableReverse();
+                        StartCoroutine(PowerUpCooldownRightPlayer());
+                        whoBouncedTheBall = "";
+                    }
+                    else{
+                        Destroy(collider.gameObject);
+                        leftPlayerMovement.EnableReverse();
+                        StartCoroutine(PowerUpCooldownLeftPlayer());
+                        whoBouncedTheBall = "";
+                    }
+                }
+        }
+    }
+
+    private IEnumerator PowerUpCooldownLeftPlayer(){
+        yield return new WaitForSeconds(5.0f);
+        leftPlayerMovement.DisbaleReverse();
+    }
+
+    private IEnumerator PowerUpCooldownRightPlayer(){
+        yield return new WaitForSeconds(5.0f);
+        rightPlayerMovement.DisbaleReverse();
     }
 
     

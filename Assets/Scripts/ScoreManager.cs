@@ -51,7 +51,7 @@ public class ScoreManager : MonoBehaviour
     private void CheckScore(){
         if(playerLeftScore == maxScoreToReach || playerRightScore == maxScoreToReach){
             SceneManager.LoadScene(2);
-            Debug.Log("max - " + maxScoreToReach + " current - " + playerLeftScore + "|" + playerRightScore);
+        
         }
     }
 }

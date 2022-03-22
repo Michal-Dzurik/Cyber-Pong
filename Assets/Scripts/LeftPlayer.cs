@@ -10,6 +10,7 @@ public class LeftPlayer : MonoBehaviour
     public GameObject player;
     private Vector2 racketDirection;
     private bool reset;
+    private bool reverse = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +23,7 @@ public class LeftPlayer : MonoBehaviour
     {
         float directionY = Input.GetAxisRaw("VerticalLeftPlayer");
 
-        racketDirection = new Vector2(0, directionY).normalized;
+        racketDirection = new Vector2(0, reverse ? directionY * (-1) : directionY).normalized;
         if(reset){
             reset = !reset;
             player.transform.position = new Vector2(-7.5f,0);
@@ -35,7 +36,16 @@ public class LeftPlayer : MonoBehaviour
         rb.velocity = racketDirection * racketSpeed;
     }
 
+    public void EnableReverse(){
+        this.reverse = true;
+    }
+
+    public void DisbaleReverse(){
+        this.reverse = false;
+    }
+
     public void Reset(){
-       reset = true;
+        reverse = false;
+        reset = true;
     }
 }
