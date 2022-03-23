@@ -16,4 +16,8 @@ public class ChangeScene : MonoBehaviour
     public void Replay(){
         MovieToScene(1);
     }
+
+    public void MainMenu(){
+        MovieToScene(0);
+    }
 }
