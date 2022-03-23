@@ -3,16 +3,31 @@ using System.Collections;
 
 public class CursorControler : MonoBehaviour
 {
-    public Texture2D cursorTexture;
+    public bool hideCursor = false;
+    public Texture2D defaultCursor;
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot = Vector2.zero;
     public void OnMouseEnter()
     {
-        Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+        
+    }
+
+    void Start(){
+        if(!hideCursor) Show();
+        else Hide();
+    }
+
+    public void Show(){
+        Cursor.visible = true;
+        Cursor.SetCursor(defaultCursor, hotSpot, cursorMode);
+    }
+
+    public void Hide(){
+        Cursor.visible = false;
     }
 
     public void OnMouseExit()
     {
-        Cursor.SetCursor(null, Vector2.zero, cursorMode);
+    
     }
 }
