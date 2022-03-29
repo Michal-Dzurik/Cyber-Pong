@@ -73,18 +73,21 @@ public class BallBounce : MonoBehaviour
             if(!whoBouncedTheBall.Equals("")){
                     Debug.Log("Here we are alsooo");
                     if(whoBouncedTheBall.Equals(PLAYER_LEFT)){
-                        Destroy(collider.gameObject);
+                        //Destroy(collider.gameObject);
                         rightPlayerMovement.EnableReverse();
                         StartCoroutine(PowerUpCooldownRightPlayer());
                         whoBouncedTheBall = "";
                     }
                     else{
-                        Destroy(collider.gameObject);
+                        //Destroy(collider.gameObject);
+                        
                         leftPlayerMovement.EnableReverse();
                         StartCoroutine(PowerUpCooldownLeftPlayer());
                         whoBouncedTheBall = "";
                     }
-                }
+
+                collider.gameObject.GetComponent<Fade>().fadeOut();
+            }
         }
     }
 
