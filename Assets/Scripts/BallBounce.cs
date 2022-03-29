@@ -13,6 +13,7 @@ public class BallBounce : MonoBehaviour
     public RightPlayer rightPlayerMovement;
     public GameObject rightProgressBar, leftProgressBar;
 
+
     // Constans
     private const string PLAYER_RIGHT = "Right Player";
     private const string PLAYER_LEFT = "Left Player";
