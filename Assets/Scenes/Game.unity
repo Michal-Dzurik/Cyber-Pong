@@ -1907,7 +1907,7 @@ GameObject:
   - component: {fileID: 1462879085}
   - component: {fileID: 1462879086}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: SpawnController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1940,11 +1940,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfPowerUps: 10
-  minXSpawn: 0.1
-  maxXSpawn: 0.3
-  minYSpawn: 0.1
-  maxYSpawn: 0.3
+  minXSpawn: -5
+  maxXSpawn: 5
+  minYSpawn: -4
+  maxYSpawn: 4
   powerUpPrefab: {fileID: 8820037774136087353, guid: ffcf1ffc2c335874b9d35cf9171f53ec, type: 3}
+  canvas: {fileID: 1556488647}
 --- !u!1 &1556488644
 GameObject:
   m_ObjectHideFlags: 0

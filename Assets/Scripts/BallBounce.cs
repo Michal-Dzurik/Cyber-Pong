@@ -76,7 +76,7 @@ public class BallBounce : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collider){
-        if(collider.gameObject.name.Equals(CHANGE_CONTROL)){
+        if(collider.gameObject.tag.Equals(CHANGE_CONTROL)){
             if(!whoBouncedTheBall.Equals("")){
                     Debug.Log("Here we are alsooo");
                     if(whoBouncedTheBall.Equals(PLAYER_LEFT)){
@@ -103,7 +103,7 @@ public class BallBounce : MonoBehaviour
 
             powerUp = collider.gameObject;
         }
-        if (collider.gameObject.name.Equals(TWO_BALLS)) {
+        if (collider.gameObject.tag.Equals(TWO_BALLS)) {
 
             // two balls power up
             if (!whoBouncedTheBall.Equals(""))

@@ -41,7 +41,7 @@ public class Fade : MonoBehaviour{
                 yield return null;
             }
 
-            Destroy(thisObject);
+        
         }
     }
 }
