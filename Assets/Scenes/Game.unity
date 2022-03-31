@@ -1874,6 +1874,7 @@ MonoBehaviour:
   startSpeed: 5
   extraSpeed: 1
   maxExtraSpeed: 10
+  spawnController: {fileID: 1462879084}
   playerRigh: {fileID: 1613752333}
   playerLeft: {fileID: 1662331377}
   playerLeftStarts: 1
@@ -1896,6 +1897,7 @@ MonoBehaviour:
   rightPlayerMovement: {fileID: 1613752333}
   rightProgressBar: {fileID: 1760521499}
   leftProgressBar: {fileID: 64019582}
+  spawnController: {fileID: 1462879084}
 --- !u!1 &1462879084
 GameObject:
   m_ObjectHideFlags: 0
@@ -1939,13 +1941,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da70bd85c9462624aa999382d350e71c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfPowerUps: 10
   minXSpawn: -5
   maxXSpawn: 5
   minYSpawn: -4
   maxYSpawn: 4
   powerUpPrefab: {fileID: 8820037774136087353, guid: ffcf1ffc2c335874b9d35cf9171f53ec, type: 3}
   canvas: {fileID: 1556488647}
+  isSpawned: 0
 --- !u!1 &1556488644
 GameObject:
   m_ObjectHideFlags: 0

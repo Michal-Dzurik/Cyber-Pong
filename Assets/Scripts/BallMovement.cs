@@ -7,7 +7,7 @@ public class BallMovement : MonoBehaviour{
     public float startSpeed;
     public float extraSpeed;
     public float maxExtraSpeed;
-
+    public GameObject spawnController;
     public RightPlayer playerRigh;
     public LeftPlayer playerLeft;
 
@@ -15,6 +15,7 @@ public class BallMovement : MonoBehaviour{
 
     private int hitCounter = 0;
     private Rigidbody2D rb;
+    
 
     // Start is called before the first frame update
     void Start(){
@@ -28,6 +29,8 @@ public class BallMovement : MonoBehaviour{
         transform.position = new Vector2(0,0);
         playerLeft.Reset();
         playerRigh.Reset();
+        spawnController.gameObject.GetComponent<Spawn>().onRestart();
+        Debug.Log("Chcem plakat");
     }
     
     public IEnumerator Launch(){

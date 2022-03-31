@@ -12,6 +12,7 @@ public class BallBounce : MonoBehaviour
     public LeftPlayer leftPlayerMovement;
     public RightPlayer rightPlayerMovement;
     public GameObject rightProgressBar, leftProgressBar;
+    public GameObject spawnController;
 
 
     // Constans
@@ -99,6 +100,8 @@ public class BallBounce : MonoBehaviour
 
                 
                 collider.gameObject.GetComponent<Fade>().fadeOut();
+                spawnController.gameObject.GetComponent<Spawn>().IsDestroyed();
+                
             }
 
             powerUp = collider.gameObject;
