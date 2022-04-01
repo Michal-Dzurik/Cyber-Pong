@@ -5,13 +5,8 @@ using UnityEngine;
 
 public class PowerUpProgressBar : MonoBehaviour {
 
-    private Slider slider;
-    private float progress;
+    public Slider slider;
     private float time = 5F;
-
-    private void Awake() { 
-        slider = gameObject.GetComponent<Slider>();
-    }
 
     public void TimerStart() {
         StartCoroutine("Timer");
@@ -20,10 +15,11 @@ public class PowerUpProgressBar : MonoBehaviour {
     public void TimerStop() {
         StopCoroutine("Timer");
         // Not dissapearing really when game scored 
+        slider.gameObject.SetActive(false);
     }
 
     IEnumerator Timer() {
-        for (float i = 1; i >= 0; i -= Time.deltaTime / 5)
+        for (float i = 1; i >= 0; i -= Time.deltaTime / time)
         {
             // set color with i as alpha
             slider.value = i;
