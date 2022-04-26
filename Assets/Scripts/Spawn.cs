@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawn : MonoBehaviour
-{
-          
+public class Spawn : MonoBehaviour{
+         
     public int minXSpawn = -600;            // The min x position that power ups can spawn
     public int maxXSpawn = 600;           // The max x position that power ups can spawn
     public int minYSpawn = -350;
@@ -14,29 +13,24 @@ public class Spawn : MonoBehaviour
     public bool isSpawned=true;
     private GameObject powerUp;
 
-    void Start()
-    {
-
-        Spawning();
-
+    void Start(){
+        SpawnPowerUp();
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
         
-        if (!isSpawned)
-        {
-            StartCoroutine(Wait()) ;
+        if (!isSpawned){
+            StartCoroutine(WaitAndSpawn());
             isSpawned = true;
         }
     }
-    private IEnumerator Wait() {
+    private IEnumerator WaitAndSpawn() {
         yield return new WaitForSeconds(5f);
-        Spawning();
+        SpawnPowerUp();
+
     }
-    public void Spawning() {
-      
+    public void SpawnPowerUp() {
         int randomX = Random.Range(minXSpawn, maxXSpawn);
         int randomY = Random.Range(minYSpawn, maxYSpawn);
         Vector2 spawnPosition = Vector2.zero;       // Create a variable to store the spawn position being generated
@@ -44,23 +38,30 @@ public class Spawn : MonoBehaviour
         spawnPosition.y = (float)randomY;                   // Assign y to our desired y position
         
         // Instantiate our powerup at the spawn position with a default rotation
-        powerUp = (GameObject)Instantiate(powerUpPrefab, spawnPosition, Quaternion.identity);
-        powerUp.transform.SetParent(canvas.transform);
-        powerUp.transform.localScale = new Vector3(30f, 30f, 30f);
-        powerUp.GetComponent<Fade>().fadeIn();
-        isSpawned = true;
-
+        if(powerUp == null) {
+            powerUp = (GameObject)Instantiate(powerUpPrefab, spawnPosition, Quaternion.identity);
+            Debug.Log("Spawning new Power UP" + isSpawned);
+            powerUp.transform.SetParent(canvas.transform);
+            powerUp.transform.localScale = new Vector3(30f, 30f, 30f);
+            powerUp.GetComponent<Fade>().fadeIn();
+            isSpawned = true;
+        }
+        
     }
     public void IsDestroyed() {
-        isSpawned=false;
-        Debug.Log("Som sexy");
+        this.isSpawned = false;
     }
     public void onRestart() {
-        if (powerUp != null)
-        {
-            powerUp.GetComponent<Fade>().fadeOut();
+        if (powerUp != null){
+            Fade fade = powerUp.GetComponent<Fade>();
+            fade.Dissapear();
             isSpawned = false;
+
+            powerUp = null;
+
         }
+        else isSpawned = false;
+
     }
 
 }

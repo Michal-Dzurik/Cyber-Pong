@@ -48,13 +48,13 @@ public class BallBounce : MonoBehaviour
         Debug.Log(collision.gameObject.name);
         switch(collision.gameObject.name){
             case PLAYER_LEFT:
-                Debug.Log(PLAYER_LEFT);
+                //Debug.Log(PLAYER_LEFT);
                 whoBouncedTheBall = PLAYER_LEFT;
                 Bounce(collision);
                 break;
             case PLAYER_RIGHT:
                 whoBouncedTheBall = PLAYER_RIGHT;
-                Debug.Log(PLAYER_RIGHT);
+                //Debug.Log(PLAYER_RIGHT);
                 Bounce(collision);
                 
                 break;
@@ -79,7 +79,7 @@ public class BallBounce : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider){
         if(collider.gameObject.tag.Equals(CHANGE_CONTROL)){
             if(!whoBouncedTheBall.Equals("")){
-                    Debug.Log("Here we are alsooo");
+                    //Debug.Log("Here we are alsooo");
                     if(whoBouncedTheBall.Equals(PLAYER_LEFT)){
                         //Destroy(collider.gameObject);
                         rightPlayerMovement.EnableReverse();
@@ -120,6 +120,7 @@ public class BallBounce : MonoBehaviour
     private void RestartPowerUps() {
         leftProgressBar.GetComponent <PowerUpProgressBar>().TimerStop();
         rightProgressBar.GetComponent <PowerUpProgressBar>().TimerStop();
+
     }
 
     private IEnumerator PowerUpCooldownLeftPlayer(){

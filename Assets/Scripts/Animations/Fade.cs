@@ -9,11 +9,15 @@ public class Fade : MonoBehaviour{
     public GameObject thisObject;
 
     public void fadeIn() {
-        StartCoroutine(FadeEffect(true));
+        StartCoroutine("FadeEffect",true);
     }
 
     public void fadeOut(){
-        StartCoroutine(FadeEffect(false));
+        StartCoroutine("FadeEffect",false);
+    }
+
+    public void Dissapear() {
+        Destroy(thisObject);
     }
 
     IEnumerator FadeEffect(bool fadeIn){
@@ -33,7 +37,9 @@ public class Fade : MonoBehaviour{
         }
         // fade from transparent to opaque
         else{
+            CircleCollider2D colider = thisObject.gameObject.GetComponent<CircleCollider2D>();
             // loop over 1 second
+            colider.isTrigger = false;
             for (float i = 0; i <= 1; i += Time.deltaTime){
                 // set color with i as alpha
                 originalColor.a = i;
@@ -41,7 +47,9 @@ public class Fade : MonoBehaviour{
                 yield return null;
             }
 
-        
+            colider.isTrigger = true;
+
+
         }
     }
 }
