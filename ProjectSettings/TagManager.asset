@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Change Controls Power-up
+  - Double Balls Power-Up
+  - Speed The Ball Power-Up
   layers:
   - Default
   - TransparentFX
