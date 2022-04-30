@@ -21,7 +21,8 @@ public class BallBounce : MonoBehaviour
     private const string LEFT_BORDER = "Left Border";
     private const string RIGHT_BORDER = "Right Border";
     private const string CHANGE_CONTROL = "Change Controls Power-up";
-    private const string TWO_BALLS = "Two Balls Power-up";
+    private const string TWO_BALLS = "Double Balls Power-Up";
+    private const string SPEED_BALL = "Speed The Ball Power-Up";
 
     private GameObject powerUp;
     private void Bounce(Collision2D collision){
@@ -111,10 +112,38 @@ public class BallBounce : MonoBehaviour
             // two balls power up
             if (!whoBouncedTheBall.Equals(""))
             {
-                powerUp = collider.gameObject;
 
-            }
+                if (whoBouncedTheBall.Equals(PLAYER_LEFT))
+                {
+                    GetComponent<BallMovement>().SpawnBall2();
+                    GetComponent<BallMovement>().MoveBall2(new Vector2(-1, -1));
+                    whoBouncedTheBall = "";
+                }
+                else {
+                    GetComponent<BallMovement>().SpawnBall2();
+                    GetComponent<BallMovement>().MoveBall2(new Vector2(1, 1));
+                    whoBouncedTheBall = "";
+                }
+             
+                collider.gameObject.GetComponent<Fade>().fadeOut();
+                spawnController.gameObject.GetComponent<Spawn>().IsDestroyed();
+            } 
+            powerUp = collider.gameObject;
         }
+        if (collider.gameObject.tag.Equals(SPEED_BALL))
+        {
+
+            // speed ball power up
+            if (!whoBouncedTheBall.Equals(""))
+            {
+                GetComponent<BallMovement>().ballSpeed=9999999999999999999;
+                Debug.Log("I hit it");
+                collider.gameObject.GetComponent<Fade>().fadeOut();
+                spawnController.gameObject.GetComponent<Spawn>().IsDestroyed();
+            }
+            powerUp = collider.gameObject;
+        }
+
     }
 
     private void RestartPowerUps() {

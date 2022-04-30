@@ -8,7 +8,9 @@ public class Spawn : MonoBehaviour{
     public int maxXSpawn = 600;           // The max x position that power ups can spawn
     public int minYSpawn = -350;
     public int maxYSpawn = 350;
-    public GameObject powerUpPrefab;        // The prefab of the power up to be spawned
+    public GameObject powerUpPrefab;  // The prefab of the power up to be spawned
+    public GameObject powerUpPrefab2;
+    public GameObject powerUpPrefab3;
     public Canvas canvas;
     public bool isSpawned=true;
     private GameObject powerUp;
@@ -39,7 +41,18 @@ public class Spawn : MonoBehaviour{
         
         // Instantiate our powerup at the spawn position with a default rotation
         if(powerUp == null) {
-            powerUp = (GameObject)Instantiate(powerUpPrefab, spawnPosition, Quaternion.identity);
+            int randomPowerUp = Random.Range(0, 2);
+            if (randomPowerUp == 0)
+            {
+                powerUp = (GameObject)Instantiate(powerUpPrefab, spawnPosition, Quaternion.identity);
+            }
+            else if (randomPowerUp == 1)
+            {
+                powerUp = (GameObject)Instantiate(powerUpPrefab2, spawnPosition, Quaternion.identity);
+            }
+            else {
+                powerUp = (GameObject)Instantiate(powerUpPrefab3, spawnPosition, Quaternion.identity);
+            }
             Debug.Log("Spawning new Power UP" + isSpawned);
             powerUp.transform.SetParent(canvas.transform);
             powerUp.transform.localScale = new Vector3(30f, 30f, 30f);
