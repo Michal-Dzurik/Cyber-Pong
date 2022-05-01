@@ -12,7 +12,7 @@ public class Spawn : MonoBehaviour{
     public GameObject powerUpPrefab2;
     public GameObject powerUpPrefab3;
     public Canvas canvas;
-    public bool isSpawned=true;
+    public bool isSpawned = true;
     private GameObject powerUp;
 
     void Start(){
@@ -41,7 +41,8 @@ public class Spawn : MonoBehaviour{
         
         // Instantiate our powerup at the spawn position with a default rotation
         if(powerUp == null) {
-            int randomPowerUp = Random.Range(0, 2);
+            int randomPowerUp = Random.Range(0, 2); // we want values from 0 - 2, so + 1
+            Debug.Log("Random Power Up - " + randomPowerUp);
             if (randomPowerUp == 0)
             {
                 powerUp = (GameObject)Instantiate(powerUpPrefab, spawnPosition, Quaternion.identity);
@@ -50,9 +51,7 @@ public class Spawn : MonoBehaviour{
             {
                 powerUp = (GameObject)Instantiate(powerUpPrefab2, spawnPosition, Quaternion.identity);
             }
-            else {
-                powerUp = (GameObject)Instantiate(powerUpPrefab3, spawnPosition, Quaternion.identity);
-            }
+           
             Debug.Log("Spawning new Power UP" + isSpawned);
             powerUp.transform.SetParent(canvas.transform);
             powerUp.transform.localScale = new Vector3(30f, 30f, 30f);

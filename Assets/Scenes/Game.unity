@@ -1948,8 +1948,8 @@ MonoBehaviour:
   minYSpawn: -4
   maxYSpawn: 4
   powerUpPrefab: {fileID: 8820037774136087353, guid: ffcf1ffc2c335874b9d35cf9171f53ec, type: 3}
-  powerUpPrefab2: {fileID: 6709874605537025317, guid: c805eb24d4992554f9fd6b761aaa0db4, type: 3}
-  powerUpPrefab3: {fileID: 8923326685586063317, guid: ad401ec3c2ef0e648a1e2ed3f4df4b73, type: 3}
+  powerUpPrefab2: {fileID: 8923326685586063317, guid: ad401ec3c2ef0e648a1e2ed3f4df4b73, type: 3}
+  powerUpPrefab3: {fileID: 6709874605537025317, guid: c805eb24d4992554f9fd6b761aaa0db4, type: 3}
   canvas: {fileID: 1556488647}
   isSpawned: 0
 --- !u!1 &1556488644

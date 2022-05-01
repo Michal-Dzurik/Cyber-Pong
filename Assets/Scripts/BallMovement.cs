@@ -7,21 +7,22 @@ public class BallMovement : MonoBehaviour{
     public float startSpeed;
     public float extraSpeed;
     public float maxExtraSpeed;
+    private int hitCounterBefore;
     public float ballSpeed;
     public GameObject spawnController;
     public RightPlayer playerRigh;
     public LeftPlayer playerLeft;
 
     public bool playerLeftStarts = true;
+    private bool speededUp = false;
 
     private int hitCounter = 0;
-    private Rigidbody2D rb,rb2;
+    private Rigidbody2D rb;
     
 
     // Start is called before the first frame update
     void Start(){
         rb = GetComponent<Rigidbody2D>();
-        rb2 = GetComponent<Rigidbody2D>();
         StartCoroutine(Launch());
     }
 
@@ -30,6 +31,7 @@ public class BallMovement : MonoBehaviour{
         transform.position = new Vector2(0, 0);
         playerLeft.Reset();
         playerRigh.Reset();
+        stopPowerUpSpeed();
         spawnController.gameObject.GetComponent<Spawn>().onRestart();
         Debug.Log("Chcem plakat");
     }
@@ -49,7 +51,7 @@ public class BallMovement : MonoBehaviour{
     public void MoveBall(Vector2 direction){
         direction = direction.normalized;
 
-        ballSpeed = startSpeed + hitCounter * extraSpeed;
+        if(!speededUp) ballSpeed = startSpeed + hitCounter * extraSpeed;
 
         rb.velocity = direction * ballSpeed;
     }
@@ -59,17 +61,23 @@ public class BallMovement : MonoBehaviour{
             hitCounter++;
         }
     }
-    public void SpawnBall2() {
-        rb2.velocity = new Vector2(0, 0);
-        transform.position = new Vector2(0, 0);
+
+    public void setPowerUpSpeed(float speed) {
+        if (!speededUp)
+        {
+            hitCounterBefore = hitCounter;
+            speededUp = true;
+
+            ballSpeed = speed;
+        }
     }
-    public void MoveBall2(Vector2 direction)
-    {
-        direction = direction.normalized;
 
-        ballSpeed = startSpeed + hitCounter * extraSpeed;
+    public void stopPowerUpSpeed() {
+        if (speededUp) {
+            hitCounter = hitCounterBefore;
+            speededUp = false;
+        }
 
-        rb2.velocity = direction * ballSpeed;
     }
 
 }

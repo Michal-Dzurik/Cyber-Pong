@@ -107,39 +107,32 @@ public class BallBounce : MonoBehaviour
 
             powerUp = collider.gameObject;
         }
-        if (collider.gameObject.tag.Equals(TWO_BALLS)) {
-
-            // two balls power up
-            if (!whoBouncedTheBall.Equals(""))
-            {
-
-                if (whoBouncedTheBall.Equals(PLAYER_LEFT))
-                {
-                    GetComponent<BallMovement>().SpawnBall2();
-                    GetComponent<BallMovement>().MoveBall2(new Vector2(-1, -1));
-                    whoBouncedTheBall = "";
-                }
-                else {
-                    GetComponent<BallMovement>().SpawnBall2();
-                    GetComponent<BallMovement>().MoveBall2(new Vector2(1, 1));
-                    whoBouncedTheBall = "";
-                }
-             
-                collider.gameObject.GetComponent<Fade>().fadeOut();
-                spawnController.gameObject.GetComponent<Spawn>().IsDestroyed();
-            } 
-            powerUp = collider.gameObject;
-        }
         if (collider.gameObject.tag.Equals(SPEED_BALL))
         {
 
             // speed ball power up
             if (!whoBouncedTheBall.Equals(""))
             {
-                GetComponent<BallMovement>().ballSpeed=9999999999999999999;
-                Debug.Log("I hit it");
+                GetComponent<BallMovement>().setPowerUpSpeed(25f);
                 collider.gameObject.GetComponent<Fade>().fadeOut();
                 spawnController.gameObject.GetComponent<Spawn>().IsDestroyed();
+
+                if (whoBouncedTheBall.Equals(PLAYER_LEFT))
+                {
+                    //Destroy(collider.gameObject);
+                    StartCoroutine(PowerUpCooldownRightPlayer());
+                    whoBouncedTheBall = "";
+                    rightProgressBar.gameObject.SetActive(true);
+                    rightProgressBar.GetComponent<PowerUpProgressBar>().TimerStart();
+                }
+                else
+                {
+                    //Destroy(collider.gameObject);
+                    StartCoroutine(PowerUpCooldownLeftPlayer());
+                    whoBouncedTheBall = "";
+                    leftProgressBar.gameObject.SetActive(true);
+                    leftProgressBar.GetComponent<PowerUpProgressBar>().TimerStart();
+                }
             }
             powerUp = collider.gameObject;
         }
@@ -161,5 +154,11 @@ public class BallBounce : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
         rightPlayerMovement.DisbaleReverse();
     }
-    
+
+    private IEnumerator PowerUpSpeed()
+    {
+        yield return new WaitForSeconds(5.0f);
+        GetComponent<BallMovement>().stopPowerUpSpeed();
+    }
+
 }
