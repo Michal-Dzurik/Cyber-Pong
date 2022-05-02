@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 437535690857468788}
   - component: {fileID: 2876249297163338848}
   m_Layer: 6
-  m_Name: Double Balls Power-Up
-  m_TagString: Double Balls Power-Up
+  m_Name: Shrink Power Up
+  m_TagString: Shrink Power-Up
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 65bc1f91e2702aa498ec259301c71736, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 298ad335ab034ce42aedc6aa59a60de3, type: 3}
   m_Color: {r: 0.029375792, g: 0.8352941, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0

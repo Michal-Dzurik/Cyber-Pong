@@ -23,7 +23,7 @@ public class BallBounce : MonoBehaviour
     private const string LEFT_BORDER = "Left Border";
     private const string RIGHT_BORDER = "Right Border";
     private const string CHANGE_CONTROL = "Change Controls Power-up";
-    private const string TWO_BALLS = "Double Balls Power-Up";
+    private const string SHRINK = "Shrink Power-Up";
     private const string SPEED_BALL = "Speed The Ball Power-Up";
 
     private GameObject powerUp;
@@ -58,7 +58,9 @@ public class BallBounce : MonoBehaviour
                     GetComponent<BallMovement>().setPowerUpSpeed(25f);
                     shoot = false;
                 }
-                else PowerUpSpeedStop();
+                else {
+                    PowerUpSpeedStop();
+                }
                 Bounce(collision);
                 break;
             case PLAYER_RIGHT:
@@ -69,7 +71,10 @@ public class BallBounce : MonoBehaviour
                     GetComponent<BallMovement>().setPowerUpSpeed(25f);
                     shoot = false;
                 }
-                else PowerUpSpeedStop();
+                else
+                {
+                    PowerUpSpeedStop();
+                }
                 Bounce(collision);
                 
                 break;
@@ -135,6 +140,42 @@ public class BallBounce : MonoBehaviour
             }
             powerUp = collider.gameObject;
         }
+        if (collider.gameObject.tag.Equals(SHRINK))
+        {
+
+            if (!whoBouncedTheBall.Equals(""))
+            {
+                //Debug.Log("Here we are alsooo");
+                if (whoBouncedTheBall.Equals(PLAYER_LEFT))
+                {
+                    //Destroy(collider.gameObject);
+                    
+                    rightPlayerMovement.MakePlatformSmall();
+                    StartCoroutine(PowerUpCooldownRightPlayer());
+                    whoBouncedTheBall = "";
+                    rightProgressBar.gameObject.SetActive(true);
+                    rightProgressBar.GetComponent<PowerUpProgressBar>().TimerStart();
+                }
+                else
+                {
+                    //Destroy(collider.gameObject);
+
+                    leftPlayerMovement.MakePlatformSmall();
+                    StartCoroutine(PowerUpCooldownLeftPlayer());
+                    whoBouncedTheBall = "";
+                    leftProgressBar.gameObject.SetActive(true);
+                    leftProgressBar.GetComponent<PowerUpProgressBar>().TimerStart();
+                }
+
+
+                collider.gameObject.GetComponent<Fade>().fadeOut();
+                spawnController.gameObject.GetComponent<Spawn>().IsDestroyed();
+                StartCoroutine(ResetPlatformsDealyed());
+
+            }
+
+            powerUp = collider.gameObject;
+        }
 
     }
 
@@ -142,6 +183,7 @@ public class BallBounce : MonoBehaviour
         leftProgressBar.GetComponent <PowerUpProgressBar>().TimerStop();
         rightProgressBar.GetComponent <PowerUpProgressBar>().TimerStop();
 
+        ResetPlatforms();
     }
 
     private IEnumerator PowerUpCooldownLeftPlayer(){
@@ -157,6 +199,21 @@ public class BallBounce : MonoBehaviour
     private void PowerUpSpeedStop()
     {
         GetComponent<BallMovement>().stopPowerUpSpeed();
+    }
+
+    private IEnumerator ResetPlatformsDealyed()
+    {
+        yield return new WaitForSeconds(5.0f);
+        leftPlayerMovement.ResetPlatformSmall();
+        rightPlayerMovement.ResetPlatformSmall();
+
+    }
+
+    private void ResetPlatforms()
+    {
+        leftPlayerMovement.ResetPlatformSmall();
+        rightPlayerMovement.ResetPlatformSmall();
+
     }
 
 }

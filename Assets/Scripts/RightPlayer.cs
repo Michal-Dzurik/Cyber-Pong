@@ -12,6 +12,7 @@ public class RightPlayer : MonoBehaviour
     private Vector2 racketDirection;
     private bool reset = false;
     private bool reverse = false;
+    private Vector2 originalHeight;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +48,16 @@ public class RightPlayer : MonoBehaviour
 
     public void Reset(){
         reverse = false;
-       reset = true;
+        reset = true;
+    }
+
+    public void MakePlatformSmall()
+    {
+        this.gameObject.GetComponent<Transform>().localScale = new Vector2(90.05234F, 60.05234F);
+    }
+
+    public void ResetPlatformSmall()
+    {
+        this.gameObject.GetComponent<Transform>().localScale = new Vector2(90.05234F, 90.05234F);
     }
 }

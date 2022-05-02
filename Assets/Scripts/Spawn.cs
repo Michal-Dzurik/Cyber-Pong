@@ -41,8 +41,9 @@ public class Spawn : MonoBehaviour{
         
         // Instantiate our powerup at the spawn position with a default rotation
         if(powerUp == null) {
-            int randomPowerUp = Random.Range(0, 2); // we want values from 0 - 2, so + 1
+            int randomPowerUp = Random.Range(0, 3); // we want values from 0 - 2, so + 1
             Debug.Log("Random Power Up - " + randomPowerUp);
+            randomPowerUp = 2;
             if (randomPowerUp == 0)
             {
                 powerUp = (GameObject)Instantiate(powerUpPrefab, spawnPosition, Quaternion.identity);
@@ -50,6 +51,9 @@ public class Spawn : MonoBehaviour{
             else if (randomPowerUp == 1)
             {
                 powerUp = (GameObject)Instantiate(powerUpPrefab2, spawnPosition, Quaternion.identity);
+            }
+            else {
+                powerUp = (GameObject)Instantiate(powerUpPrefab3, spawnPosition, Quaternion.identity);
             }
            
             Debug.Log("Spawning new Power UP" + isSpawned);

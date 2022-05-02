@@ -5,6 +5,7 @@ using UnityEngine;
 public class LeftPlayer : MonoBehaviour
 {
     public float racketSpeed;
+    private Vector2 originalHeight;
 
     private Rigidbody2D rb;
     public GameObject player;
@@ -47,5 +48,14 @@ public class LeftPlayer : MonoBehaviour
     public void Reset(){
         reverse = false;
         reset = true;
+    }
+
+    public void MakePlatformSmall(){
+        this.gameObject.GetComponent<Transform>().localScale = new Vector2(90.05234F, 60.05234F);
+    }
+
+    public void ResetPlatformSmall()
+    {
+        this.gameObject.GetComponent<Transform>().localScale = new Vector2(90.05234F, 90.05234F);
     }
 }
