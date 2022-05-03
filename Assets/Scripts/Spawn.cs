@@ -43,7 +43,6 @@ public class Spawn : MonoBehaviour{
         if(powerUp == null) {
             int randomPowerUp = Random.Range(0, 3); // we want values from 0 - 2, so + 1
             Debug.Log("Random Power Up - " + randomPowerUp);
-            randomPowerUp = 2;
             if (randomPowerUp == 0)
             {
                 powerUp = (GameObject)Instantiate(powerUpPrefab, spawnPosition, Quaternion.identity);

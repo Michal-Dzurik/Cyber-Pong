@@ -24,8 +24,10 @@ public class Fade : MonoBehaviour{
         // fade from opaque to transparent
         SpriteRenderer texture = thisObject.GetComponent<SpriteRenderer>();
         Color originalColor = texture.color; 
-        if (!fadeIn){
+        if (!fadeIn)
+        {
             // loop over 1 second backwards
+            thisObject.GetComponent<Collider2D>().enabled = false;
             for (float i = 1; i >= 0; i -= Time.deltaTime){
                 // set color with i as alpha
                 originalColor.a = i;
@@ -38,6 +40,7 @@ public class Fade : MonoBehaviour{
         // fade from transparent to opaque
         else{
             CircleCollider2D colider = thisObject.gameObject.GetComponent<CircleCollider2D>();
+            thisObject.GetComponent<Collider2D>().enabled = false;
             // loop over 1 second
             colider.isTrigger = false;
             for (float i = 0; i <= 1; i += Time.deltaTime){
@@ -46,6 +49,8 @@ public class Fade : MonoBehaviour{
                 texture.color = originalColor;
                 yield return null;
             }
+
+            thisObject.GetComponent<Collider2D>().enabled = true;
 
             colider.isTrigger = true;
 
